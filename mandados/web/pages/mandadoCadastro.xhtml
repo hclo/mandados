@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="/templates/modelo.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:viewParam name="manacao" value="#{mandadoBean.acao}" />
+                <f:viewParam name="mancod" value="#{mandadoBean.codigo}" />
+
+                <f:event listener="#{mandadoBean.carregarCadastro}"
+                         type="preRenderView" />
+            </f:metadata>
+        </ui:define>
+        <ui:define name="conteudo">
+            <h:form id="frmManCad">
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="Mandados" />
+                    </f:facet>
+                </p:toolbar>
+
+                <h:panelGrid id="pnlManCadDados" columns="2">
+                    <p:outputLabel value="Código:" />
+                    <p:inputText size="10" readonly="true"
+                                 value="#{mandadoBean.mandadoCadastro.codigo}" />
+
+                    <p:outputLabel value="Número:" />
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{mandadoBean.mandadoCadastro.numero}"
+                                 readonly="#{mandadoBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:inputText>
+
+                    <p:outputLabel value="Autos:" />
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{mandadoBean.mandadoCadastro.autos}"
+                                 readonly="#{mandadoBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:inputText>
+
+                    <p:outputLabel value="Cartório:" />
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{mandadoBean.mandadoCadastro.cartorio}"
+                                 readonly="#{mandadoBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:inputText>
+
+                    <p:outputLabel value="Nome:" />
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{mandadoBean.mandadoCadastro.nome}"
+                                 readonly="#{mandadoBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:inputText>
+
+                    <h:outputLabel value="Bairro:" />
+                    <p:selectOneMenu id="mandado-bairro"
+                                     style="width:250px"
+                                     value="#{mandadoBean.bairroCadastro}"
+                                     converter="bairroConverter"
+                                     disabled="#{mandadoBean.acao == 'excluir'}">  
+                        <f:selectItem itemLabel="Selecione o bairro"
+                                      itemValue="" />  
+                        <f:selectItems value="#{mandadoBean.bairros}" 
+                                       var="b" itemValue="#{b}" 
+                                       itemLabel="#{b.descricao}"/>  
+                        <p:ajax update="mandado-logradouros" 
+                                event="change"
+                                listener="#{mandadoBean.selecionaBairro}" />  
+                    </p:selectOneMenu> 
+
+                    <h:outputLabel value="Logradouro:" />
+                    <p:selectOneMenu id="mandado-logradouros"
+                                     style="width:250px"
+                                     value="#{mandadoBean.logradouroCadastro}"
+                                     converter="logradouroConverter"
+                                     disabled="#{mandadoBean.acao == 'excluir'}">  
+                        <f:selectItem itemLabel="Selecione o logradouro"
+                                      itemValue="" />  
+                        <f:selectItems value="#{mandadoBean.logradouros}" 
+                                       var="l" itemValue="#{l}"
+                                       itemLabel="#{l.descricao}"/>  
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Complemento:" />
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{mandadoBean.mandadoCadastro.complemento}"
+                                 readonly="#{mandadoBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:inputText>
+
+                    <p:outputLabel value="Região:" />
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{mandadoBean.mandadoCadastro.reg}"
+                                 readonly="#{mandadoBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:inputText>
+                    
+                    <p:outputLabel value="Audiência:" />
+                    <p:calendar id="mandado-audi" maxlength="50" size="30"
+                                value="#{mandadoBean.mandadoCadastro.audi}"
+                                readonly="#{mandadoBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:calendar>
+
+                    <p:outputLabel value="Carga:" />
+                    <p:calendar id="mandado-carga" maxlength="50" size="30"
+                                value="#{mandadoBean.mandadoCadastro.carga}"
+                                readonly="#{mandadoBean.acao == 'excluir'}">
+                    </p:calendar>
+
+                    <p:outputLabel value="Prazo:" />
+                    <p:calendar id="mandado-prazo" maxlength="50" size="30"
+                                value="#{mandadoBean.mandadoCadastro.prazo}"
+                                readonly="#{mandadoBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:calendar>
+
+                    <p:outputLabel value="JG/PG:" />
+                    <p:selectOneMenu
+                        value="#{mandadoBean.mandadoCadastro.jgpg}"
+                        disabled="#{mandadoBean.acao == 'excluir'}"
+                        style="width:250px">
+                        <f:validateBean />
+                        <f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+                        <f:selectItem itemLabel="Justiça gratuita" itemValue="JG" />
+                        <f:selectItem itemLabel="Justiça paga" itemValue="PG" />
+                        <f:selectItem itemLabel="Sem diligência" itemValue="SD" />
+                        <f:selectItem itemLabel="FP Municipal" itemValue="FPM" />
+                        <f:selectItem itemLabel="FP Estadual" itemValue="FPE" />
+                        <f:selectItem itemLabel="FP Federal" itemValue="FPF" />
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="5">
+                    <p:commandButton value="Novo"
+                                     actionListener="#{mandadoBean.novo}"
+                                     update=":frmManCad:pnlManCadDados"
+                                     rendered="#{mandadoBean.acao == 'novo'}" />
+
+
+                    <p:commandButton value="Salvar"
+                                     actionListener="#{mandadoBean.salvar}"
+                                     update=":messages :frmManCad:pnlManCadDados"
+                                     rendered="#{mandadoBean.acao == 'novo'}" />
+
+                    <p:commandButton value="Excluir"
+                                     actionListener="#{mandadoBean.excluir}" update=":messages"
+                                     rendered="#{mandadoBean.acao == 'excluir'}" />
+
+                    <p:commandButton value="Editar"
+                                     actionListener="#{mandadoBean.editar}" update=":messages"
+                                     rendered="#{mandadoBean.acao == 'editar'}" />
+
+                    <p:button value="Voltar" outcome="/pages/mandadoPesquisa.xhtml" />
+                </h:panelGrid>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="/templates/modelo.xhtml">
+
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{mandadoBean.carregarPesquisa}"
+                         type="preRenderView" />
+            </f:metadata>
+        </ui:define>
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="Mandados" />
+                    </f:facet>
+                </p:toolbar>
+
+                <p:dataTable emptyMessage="Nenhum registro encontrado."
+                             value="#{mandadoBean.listaMandados}"
+                             filteredValue="#{mandadoBean.listaMandadosFiltrados}"
+                             var="mandadoCursor" rows="8" paginator="true">
+
+                    <f:facet name="footer">
+                        <p:button value="Novo"
+                                  outcome="/pages/mandadoCadastro.xhtml?faces-redirect=true">
+                            <f:param name="manacao" value="novo" />
+                        </p:button>
+                    </f:facet>
+
+                    <p:column headerText="Cod" style="width: 8%; text-align: center">
+                        <h:outputText value="#{mandadoCursor.codigo}" />
+                    </p:column>
+
+                    <p:column headerText="Número" filterBy="#{mandadoCursor.numero}"
+                              sortBy="#{mandadoCursor.numero}">
+                        <h:outputFormat value="#{mandadoCursor.numero}" />
+                    </p:column>
+
+                    <p:column headerText="Nome" filterBy="#{mandadoCursor.nome}"
+                              sortBy="#{mandadoCursor.nome}">
+                        <h:outputFormat value="#{mandadoCursor.nome}" />
+                    </p:column>
+
+                    <p:column headerText="Logradouro" filterBy="#{mandadoCursor.logradouro.descricao}"
+                              sortBy="#{mandadoCursor.logradouro.descricao}">
+                        <h:outputFormat value="#{mandadoCursor.logradouro.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Bairro" filterBy="#{mandadoCursor.bairro.descricao}"
+                              sortBy="#{mandadoCursor.bairro.descricao}">
+                        <h:outputFormat value="#{mandadoCursor.bairro.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Reg." filterBy="#{mandadoCursor.reg}"
+                              sortBy="#{mandadoCursor.reg}">
+                        <h:outputFormat value="#{mandadoCursor.reg}" />
+                    </p:column>
+
+                    <p:column headerText="Audi" filterBy="#{mandadoCursor.audi}"
+                              sortBy="#{mandadoCursor.audi}">
+                        <h:outputFormat value="#{mandadoCursor.audi}" />
+                    </p:column>
+
+                    <p:column headerText="Prazo" filterBy="#{mandadoCursor.prazo}"
+                              sortBy="#{mandadoCursor.prazo}">
+                        <h:outputFormat value="#{mandadoCursor.prazo}" />
+                    </p:column>
+
+                    <p:column headerText="Opções" style="width: 18%; text-align: center">
+                        <p:button value="Excluir"
+                                  outcome="/pages/mandadoCadastro.xhtml?faces-redirect=true">
+                            <f:param name="manacao" value="excluir" />
+                            <f:param name="mancod" value="#{mandadoCursor.codigo}" />
+                        </p:button>
+
+                        <p:button value="Editar"
+                                  outcome="/pages/mandadoCadastro.xhtml?faces-redirect=true">
+                            <f:param name="manacao" value="editar" />
+                            <f:param name="mancod" value="#{mandadoCursor.codigo}" />
+                        </p:button>
+
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

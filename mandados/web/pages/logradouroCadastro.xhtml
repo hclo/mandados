@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/modelo.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:viewParam name="logacao" value="#{logradouroBean.acao}" />
+                <f:viewParam name="logcod" value="#{logradouroBean.codigo}" />
+
+                <f:event listener="#{logradouroBean.carregarCadastro}"
+                         type="preRenderView" />
+            </f:metadata>
+        </ui:define>
+        <ui:define name="conteudo">
+            <h:form id="frmLogCad">
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="Logradouros" />
+                    </f:facet>
+                </p:toolbar>
+
+                <h:panelGrid id="pnlLogCadDados" columns="2">
+                    <p:outputLabel value="Código:" />
+                    <p:inputText size="10" readonly="true"
+                                 value="#{logradouroBean.logradouroCadastro.codigo}" />
+
+                    <p:outputLabel value="Nome:" />
+                    <p:inputText maxlength="50" size="30"
+                                 value="#{logradouroBean.logradouroCadastro.descricao}"
+                                 readonly="#{logradouroBean.acao == 'excluir'}">
+                        <f:validateBean />
+                    </p:inputText>
+
+                    <p:outputLabel value="Bairro:" />
+                    <p:selectOneMenu
+                        value="#{logradouroBean.logradouroCadastro.bairro}"
+                        disabled="#{logradouroBean.acao == 'excluir'}" 
+                        converter="bairroConverter">
+                        <f:validateBean />
+                        <f:selectItem itemLabel="Selecione um bairro" itemValue="" />
+                        <f:selectItems value="#{logradouroBean.listaBairros}" 
+                                       var="bairroCursor" itemValue="#{bairroCursor}"
+                                       itemLabel="#{bairroCursor.descricao}"/>
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="5">
+                    <p:commandButton value="Novo"
+                                     actionListener="#{logradouroBean.novo}"
+                                     update=":frmLogCad:pnlLogCadDados"
+                                     rendered="#{logradouroBean.acao == 'novo'}" />
+
+                    <p:commandButton value="Salvar"
+                                     actionListener="#{logradouroBean.salvar}"
+                                     update=":messages :frmLogCad:pnlLogCadDados"
+                                     rendered="#{logradouroBean.acao == 'novo'}" />
+
+                    <p:commandButton value="Excluir"
+                                     actionListener="#{logradouroBean.excluir}" update=":messages"
+                                     rendered="#{logradouroBean.acao == 'excluir'}" />
+
+                    <p:commandButton value="Editar"
+                                     actionListener="#{logradouroBean.editar}" update=":messages"
+                                     rendered="#{logradouroBean.acao == 'editar'}" />
+
+                    <p:button value="Voltar" outcome="/pages/logradouroPesquisa.xhtml" />
+                </h:panelGrid>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

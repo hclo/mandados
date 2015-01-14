@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/modelo.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{logradouroBean.carregarPesquisa}"
+                         type="preRenderView" />
+            </f:metadata>
+        </ui:define>
+
+        <ui:define name="conteudo">
+            <h:form>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="Logradouros" />
+                    </f:facet>
+                </p:toolbar>
+
+                <p:dataTable emptyMessage="Nenhum registro encontrado."
+                             value="#{logradouroBean.listaLogradouros}"
+                             filteredValue="#{logradouroBean.listaLogradourosFiltrados}"
+                             var="logradouroCursor" rows="8" paginator="true">
+
+                    <f:facet name="footer">
+                        <p:button value="Novo"
+                                  outcome="/pages/logradouroCadastro.xhtml?faces-redirect=true">
+                            <f:param name="logacao" value="novo" />
+                        </p:button>
+                    </f:facet>
+
+                    <p:column headerText="Código" style="width: 8%; text-align: center">
+                        <h:outputText value="#{logradouroCursor.codigo}" />
+                    </p:column>
+
+                    <p:column headerText="Descrição" filterBy="#{logradouroCursor.descricao}"
+                              sortBy="#{logradouroCursor.descricao}">
+                        <h:outputFormat value="#{logradouroCursor.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Bairro" filterBy="#{logradouroCursor.bairro.descricao}"
+                              sortBy="#{logradouroCursor.bairro.descricao}">
+                        <h:outputFormat value="#{logradouroCursor.bairro.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Opções" style="width: 18%; text-align: center">
+                        <p:button value="Excluir"
+                                  outcome="/pages/logradouroCadastro.xhtml?faces-redirect=true">
+                            <f:param name="logacao" value="excluir" />
+                            <f:param name="logcod" value="#{logradouroCursor.codigo}" />
+                        </p:button>
+
+                        <p:button value="Editar"
+                                  outcome="/pages/logradouroCadastro.xhtml?faces-redirect=true">
+                            <f:param name="logacao" value="editar" />
+                            <f:param name="logcod" value="#{logradouroCursor.codigo}" />
+                        </p:button>
+
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

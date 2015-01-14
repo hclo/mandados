@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f94af4c0-fc49-49c6-b819-cdee92b7020f">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_mandados.`man_codigo` AS tbl_mandados_man_codigo,
+     tbl_mandados.`man_audi` AS tbl_mandados_man_audi,
+     tbl_mandados.`man_autos` AS tbl_mandados_man_autos,
+     tbl_mandados.`man_carga` AS tbl_mandados_man_carga,
+     tbl_mandados.`man_cartorio` AS tbl_mandados_man_cartorio,
+     tbl_mandados.`man_complemento` AS tbl_mandados_man_complemento,
+     tbl_mandados.`man_jgpg` AS tbl_mandados_man_jgpg,
+     tbl_mandados.`man_nome` AS tbl_mandados_man_nome,
+     tbl_mandados.`man_numero` AS tbl_mandados_man_numero,
+     tbl_mandados.`man_prazo` AS tbl_mandados_man_prazo,
+     tbl_mandados.`man_reg` AS tbl_mandados_man_reg,
+     tbl_mandados.`tbl_bairros_bai_codigo` AS tbl_mandados_tbl_bairros_bai_codigo,
+     tbl_mandados.`tbl_logradouros_log_codigo` AS tbl_mandados_tbl_logradouros_log_codigo
+FROM
+     `tbl_mandados` tbl_mandados
+WHERE
+     man_prazo < 19/12/2014]]>
+	</queryString>
+	<field name="tbl_mandados_man_codigo" class="java.lang.Long"/>
+	<field name="tbl_mandados_man_audi" class="java.sql.Date"/>
+	<field name="tbl_mandados_man_autos" class="java.lang.String"/>
+	<field name="tbl_mandados_man_carga" class="java.sql.Date"/>
+	<field name="tbl_mandados_man_cartorio" class="java.lang.String"/>
+	<field name="tbl_mandados_man_complemento" class="java.lang.String"/>
+	<field name="tbl_mandados_man_jgpg" class="java.lang.String"/>
+	<field name="tbl_mandados_man_nome" class="java.lang.String"/>
+	<field name="tbl_mandados_man_numero" class="java.lang.String"/>
+	<field name="tbl_mandados_man_prazo" class="java.sql.Date"/>
+	<field name="tbl_mandados_man_reg" class="java.lang.Integer"/>
+	<field name="tbl_mandados_tbl_bairros_bai_codigo" class="java.lang.Long"/>
+	<field name="tbl_mandados_tbl_logradouros_log_codigo" class="java.lang.Long"/>
+	<group name="tbl_mandados_man_cartorio">
+		<groupExpression><![CDATA[$F{tbl_mandados_man_cartorio}]]></groupExpression>
+		<groupHeader>
+			<band height="37">
+				<frame>
+					<reportElement mode="Opaque" x="-21" y="7" width="843" height="24" forecolor="#B89F7D" backcolor="#F2EBDF" uuid="5c1d2f11-28ea-4862-847c-d3753db6f2f1"/>
+					<rectangle>
+						<reportElement mode="Opaque" x="21" y="0" width="36" height="24" backcolor="#736343" uuid="8de9c4dd-81ba-4af2-bd40-b0cdedfa9650"/>
+						<graphicElement>
+							<pen lineWidth="0.0"/>
+						</graphicElement>
+					</rectangle>
+					<textField>
+						<reportElement style="SubTitle" x="68" y="0" width="755" height="24" forecolor="#736343" uuid="a24c1f35-d27e-4310-9147-c30cc539d504"/>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{tbl_mandados_man_cartorio}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="3" y="0" width="795" height="62" uuid="da448e7b-e145-422e-8ae6-e2f0b6885b53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Mandados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="3" y="62" width="795" height="22" uuid="52a27ed9-dc6a-48ad-b41b-b032a9b4e59e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Relatório de mandados vencidos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="7a411b2f-ff27-443b-bf34-adacbf28bffb"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="3" y="1" width="130" height="15" forecolor="#736343" uuid="32972731-5389-4519-9507-22ee45b48f7a"/>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="133" y="1" width="108" height="15" forecolor="#736343" uuid="34e0343a-f236-439f-9b51-8c82c6ed7513"/>
+				<text><![CDATA[Autos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="518" y="1" width="89" height="15" forecolor="#736343" uuid="c13e64ca-2c77-488e-8dc3-3aeb870ecd0d"/>
+				<text><![CDATA[Carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="607" y="1" width="94" height="15" forecolor="#736343" uuid="56b1160a-7859-43fd-b7ac-be1dee7f0d6e"/>
+				<text><![CDATA[Prazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="701" y="1" width="97" height="15" forecolor="#736343" uuid="5f783330-8dcb-4a31-833c-882e5b29d475"/>
+				<text><![CDATA[Audiência]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="241" y="1" width="277" height="15" forecolor="#736343" uuid="b2d95c47-4cda-412c-8ebb-c0e0f04c5180"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="06a73527-b010-4fb0-b42b-0a04ca7fdd3a"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="133" height="15" uuid="1330d9d9-3965-42b1-a486-98821bbd89b2"/>
+					<textFieldExpression><![CDATA[$F{tbl_mandados_man_numero}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="133" y="0" width="108" height="15" uuid="6b71a8d7-f7ec-43f6-a039-59945e0ce4d0"/>
+					<textFieldExpression><![CDATA[$F{tbl_mandados_man_autos}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" x="518" y="0" width="89" height="15" uuid="eae94a38-dfd3-4837-8cae-5738a67d7986"/>
+					<textFieldExpression><![CDATA[$F{tbl_mandados_man_carga}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" x="607" y="0" width="94" height="15" uuid="39d86284-ba4b-4504-a3d3-46626b81772f"/>
+					<textFieldExpression><![CDATA[$F{tbl_mandados_man_prazo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement style="Detail" x="701" y="0" width="97" height="15" uuid="f86a111e-2106-4823-9bec-573325761997"/>
+					<textFieldExpression><![CDATA[$F{tbl_mandados_man_audi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="241" y="0" width="277" height="15" uuid="e90e36bc-08b5-439e-8d4d-d252bed182fc"/>
+					<textFieldExpression><![CDATA[$F{tbl_mandados_man_nome}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="bc35e279-ccd3-45e9-824a-e44692a5e443"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="8b0d1bcd-597b-41b1-a6d0-086cf28335e1"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="2a7b853e-060f-44e4-bae0-155537a48f00"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="8f6d1ade-6227-47ef-9a8d-26ca54efdc2c"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Pag. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="ad2c51c6-a449-462e-966a-41228df688be"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

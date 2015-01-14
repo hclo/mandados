@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:insert name="metadata" />
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Mandados</title>
+        <h:outputStylesheet library="css" name="estilos.css" />
+        <script>
+            PrimeFaces.locales['pt'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                currentText: 'Começo',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+                    'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro',
+                    'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+                    'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+                    'Sexta', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Só Horas',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                ampm: false,
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo o Dia'
+            };
+        </script>  
+    </h:head>
+
+    <h:body>
+        <p:growl id="messages" sticky="true" />
+
+        <p:layout fullPage="true">
+
+            <p:layoutUnit header="Sistema para Gerenciamento de Mandados"
+                          position="north" resizable="false" closable="false" 
+                          collapsed="false">
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="220" resizable="false"
+                          closable="false" collapsed="false">
+                <h:form id="frmMnPrincipal">
+                    <p:panelMenu id="pnlMnPrincipal">
+                        <p:submenu label="Arquivo">
+                            <p:menuitem value="Autenticação"
+                                        outcome="/pages/autenticacao.xhtml"
+                                        rendered="#{autenticacaoBean.usuarioLogado.funcao == null}" />
+                            <p:menuitem value="Principal" outcome="/pages/principal.xhtml"
+                                        rendered="#{autenticacaoBean.usuarioLogado.funcao != null}" />
+                            <p:menuitem value="Sair" action="#{autenticacaoBean.sair}"
+                                        rendered="#{autenticacaoBean.usuarioLogado.funcao != null}" />
+                        </p:submenu>
+
+                        <p:submenu label="Cadastros" icon="ui-icon-document"
+                                   rendered="#{autenticacaoBean.usuarioLogado.funcao != null}">
+                            <p:menuitem value="Bairros" outcome="/pages/bairroPesquisa"/>
+                            <p:menuitem value="Logradouros" outcome="/pages/logradouroPesquisa"/>
+                            <p:menuitem value="Mandados" outcome="/pages/mandadoPesquisa"/>
+                        </p:submenu>
+
+                        <p:submenu label="Relatórios"
+                                   rendered="#{autenticacaoBean.usuarioLogado.funcao != null}">
+                            <p:menuitem value="Relatório dos mandados" outcome="/pages/relatorios"/>
+                        </p:submenu>
+
+                        <p:submenu label="Ferramentas" icon="ui-icon-gear"
+                                   rendered="#{autenticacaoBean.usuarioLogado.funcao != null}">
+                            <p:menuitem value="Cadastro de usuário" outcome="/pages/usuarioPesquisa"/>
+                        </p:submenu>
+
+                        <p:submenu label="Ajuda" icon="ui-icon-help">
+                            <p:menuitem value="Sobre o programa" outcome="/pages/ajuda"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" resizable="false" closable="false"
+                          collapsed="false">
+                <ui:insert name="conteudo" />
+            </p:layoutUnit>
+
+        </p:layout>
+    </h:body>
+</html>
+
